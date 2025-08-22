@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Love Dashboard ❤️</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #ffdde1, #ee9ca7);
+      color: #333;
+      text-align: center;
+      padding: 20px;
+    }
+    h1 { margin-bottom: 20px; }
+    button {
+      display: block;
+      margin: 10px auto;
+      padding: 15px;
+      width: 250px;
+      font-size: 16px;
+      border: none;
+      border-radius: 12px;
+      background: #ff6f91;
+      color: white;
+      cursor: pointer;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: 0.6s ease;
+    }
+    button.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    button:hover { background: #ff3e70; }
+    .hidden { display: none; }
+    .card {
+      margin: 20px auto;
+      padding: 15px;
+      max-width: 500px;
+      background: white;
+      border-radius: 15px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    }
+    img {
+      max-width: 100%;
+      border-radius: 10px;
+      margin: 5px 0;
+    }
+    .dark {
+      background: #1e1e1e;
+      color: #fff;
+    }
+  </style>
+</head>
+<body>
+  <h1>Love Dashboard 💕</h1>
+
+  <!-- Tombol -->
+  <button onclick="showLoveLetter()">💌 Surat Cinta</button>
+  <button onclick="showGallery()">📸 Gallery Foto</button>
+  <button onclick="showCountdown()">📅 Countdown Anniversary</button>
+  <button onclick="playMusic()">🎵 Putar Lagu</button>
+  <button onclick="showQuote()">🎲 Surprise Quotes</button>
+  <button onclick="toggleMode()">🌙 Dark / Light Mode</button>
+  <button onclick="showSecret()">🔐 Pesan Rahasia</button>
+
+  <!-- Area hasil aksi tombol -->
+  <div id="content" class="card hidden"></div>
+  <div id="secret" class="card hidden"></div>
+
+  <audio id="bgmusic" src="love.mp3"></audio>
+
+  <script>
+    // Animasi muncul tombol bergiliran
+    const buttons = document.querySelectorAll("button");
+    buttons.forEach((btn, index) => {
+      setTimeout(() => {
+        btn.classList.add("show");
+      }, index * 600);
+    });
+
+    // 1. Surat cinta
+    function showLoveLetter() {
+      document.getElementById("content").innerHTML = `
+        <h3>💌 Surat Cinta</h3>
+        <p>Sayangku, terima kasih sudah selalu ada untukku. Aku beruntung punya kamu 💖</p>
+      `;
+      document.getElementById("content").classList.remove("hidden");
+    }
+
+    // 2. Gallery foto
+    function showGallery() {
+      document.getElementById("content").innerHTML = `
+        <h3>📸 Gallery Foto</h3>
+        <img src="kina.jpg" alt="Foto 1">
+        <img src="ayu.jpg" alt="Foto 2">
+      `;
+      document.getElementById("content").classList.remove("hidden");
+    }
+
+    // 3. Countdown
+    function showCountdown() {
+      const targetDate = new Date("2025-12-31").getTime();
+      const now = new Date().getTime();
+      const diff = targetDate - now;
+      const days = Math.floor(diff / (1000*60*60*24));
+      document.getElementById("content").innerHTML = `
+        <h3>📅 Countdown Anniversary</h3>
+        <p>Tinggal <b>${days}</b> hari menuju anniversary kita! 🎉</p>
+      `;
+      document.getElementById("content").classList.remove("hidden");
+    }
+
+    // 4. Musik
+    function playMusic() {
+      const music = document.getElementById("bgmusic");
+      if (music.paused) {
+        music.play();
+        alert("Musik diputar 🎶");
+      } else {
+        music.pause();
+        alert("Musik dihentikan ⏸️");
+      }
+    }
+
+    // 5. Quotes acak
+    function showQuote() {
+      const quotes = [
+        "Aku cinta kamu lebih dari kata-kata 💖",
+        "Selamanya denganmu adalah impianku ✨",
+        "Kamu adalah alasan aku tersenyum setiap hari 😍",
+        "Jarak bukan masalah, hati kita selalu dekat 💕"
+      ];
+      const q = quotes[Math.floor(Math.random() * quotes.length)];
+      document.getElementById("content").innerHTML = `
+        <h3>🎲 Surprise Quote</h3>
+        <p>${q}</p>
+      `;
+      document.getElementById("content").classList.remove("hidden");
+    }
+
+    // 6. Mode gelap
+    function toggleMode() {
+      document.body.classList.toggle("dark");
+    }
+
+    // 7. Pesan Rahasia
+    function showSecret() {
+      const input = prompt("Masukkan password:");
+      if (input === "love") { // ganti password di sini
+        document.getElementById("secret").innerHTML = `
+          <h3>💖 Kamu berhasil buka halaman rahasia! 💖</h3>
+          <p>ini foto favorit aku,makasih udah kirim ❤️</p>
+          <img src="kin.jpg" alt="Foto Rahasia">
+        `;
+        document.getElementById("secret").classList.remove("hidden");
+      } else {
+        alert("Password salah! 😜");
+      }
+    }
+  </script>
+</body>
+</html>
